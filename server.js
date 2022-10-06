@@ -1,22 +1,10 @@
-/* (1) you can rename your heroku app inside the application using the command from terminal:
- * heroku apps:rename newname
- * if rename from outside the app:
- * heroku apps:rename newname --app oldname
- * 
- * (2) When you try to install Heroku CLI on MacOS, using the following command
- * brew tap heroku/brew && brew install heroku
- * you may encounter the error showing 
- * bash: brew: command not found
- * 
- * That may be because you don't have brew yet.
- *  Make sure you've already installed brew on your system.
- *  if not try read this :
-    https://brew.sh/
-    run the following on terminal to install brew, 
- * /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
- * then try the above command: brew tap heroku/brew && brew install heroku
- */
-// http://localhost:8080
+/************************************************************************** 
+* WEB322– Assignment 2
+* I declare that this assignment is my own work in accordance with Seneca Academic Policy. No part * of this assignment has been copied manually or electronically from any other source
+* (including 3rd party web sites) or distributed to other students. *
+* Name: Anatolii Hryhorzhevskyi Student ID: 150314201 Date:  *
+* Your app’s URL (from Cyclic) : https://tame-pink-colt-yoke.cyclic.app
+**************************************************************************/
 const data = require("./data-service.js");
 var express = require("express"); // Include express.js module
 var app = express();
