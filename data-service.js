@@ -47,5 +47,82 @@ function getDepartments(){
     })
 }
 
+function addEmployee(employeeData) {
+    return new Promise(function(resolve, reject) {
+        if (typeof(employeeData.isManager) == 'undefined' || employeeData.isManager == null) {
+            employeeData.isManager = false;
+        }
+        else {
+            employeeData.isManager = true
+        }
+        employeeData.employeeNum = employees.length + 1;
+        employees.push(employeeData);
+        resolve();
+    })
+}
 
-module.exports = {initialize, getAllEmployees, getManagers, getDepartments};
+function getEmployeesByStatus(status) {
+    var employeesByStatus = [];
+    return new Promise(function(resolve, reject) {
+        for (let i = 0; i < employees.length; i++) {
+            if (employees[i].status == status) {
+                employeesByStatus.push(employees[i]);
+            }
+        }
+        if (employeesByStatus.length == 0) {
+            reject("No results returned");
+        }
+        else {
+            resolve(employeesByStatus);
+        }
+    })
+}
+
+
+
+function getEmployeesByManager(manager) {
+    var employeesByManager = [];
+    return new Promise(function(resolve, reject) {
+        for (let i = 0; i < employees.length; i++) {
+            if (employees[i].employeeManagerNum == manager) {
+                employeesByManager.push(employees[i]);
+            }
+        }
+        if (employeesByManager.length == 0) {
+            reject("No results returned");
+        }
+        else {
+            resolve(employeesByManager);
+        }
+    })
+
+}
+
+function getEmployeesByDepartment(department) {
+    var employeesByDepartment = [];
+    return new Promise(function(resolve, reject) {
+        for (let i = 0; i < employees.length; i++) {
+            if (employees[i].department == department) {
+                employeesByDepartment.push(employees[i]);
+            }
+        }
+        if (employeesByDepartment.length == 0) {
+            reject("No results returned");
+        }
+        else {
+            resolve(employeesByDepartment);
+        }
+    })
+}
+function getEmployeeByNum(num) {
+    return new Promise(function(resolve, reject) {
+        for (let i = 0; i < employees.length; i++) {
+            if (employees[i].employeeNum == num) {
+                resolve(employees[i]);
+            }
+        }
+        reject("No results returned");
+    })
+}
+
+module.exports = {initialize, getAllEmployees, getManagers, getDepartments, addEmployee, getEmployeesByStatus, getEmployeesByManager, getEmployeeByNum, getEmployeesByDepartment};
