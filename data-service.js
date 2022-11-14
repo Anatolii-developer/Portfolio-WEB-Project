@@ -124,5 +124,18 @@ function getEmployeeByNum(num) {
         reject("No results returned");
     })
 }
+function updateEmployee(employeeData){
+    return new Promise(function(resolve, reject){
+        for(let i = 0; i < employees.length; i++){
+            if(employees[i].SSN == employeeData.SSN){
+                let e = employees[i].employeeNum
+                employees[i] = employeeData;
+                employees[i].employeeNum = e;
+                resolve();
+            }
+        }
+        reject("No results returned");
+    })
+}
 
-module.exports = {initialize, getAllEmployees, getManagers, getDepartments, addEmployee, getEmployeesByStatus, getEmployeesByManager, getEmployeeByNum, getEmployeesByDepartment};
+module.exports = {initialize, getAllEmployees, getManagers, getDepartments, addEmployee, getEmployeesByStatus, getEmployeesByManager, getEmployeeByNum, getEmployeesByDepartment, updateEmployee};
