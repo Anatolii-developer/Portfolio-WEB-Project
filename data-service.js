@@ -57,6 +57,31 @@ function getAllEmployees() {
     })
 };
 
+
+
+function getManagers(){
+    return new Promise(function (resolve, reject) { reject();
+    });
+}
+
+function getDepartments(){
+   return new Promise(function(resolve, reject){
+    Department.findAll().then(data => resolve(data)).catch(() => reject("no results returned"));
+   })
+}
+
+function addEmployee(employeeData) {
+    return new Promise(function(resolve, reject) {
+        employeeData.isManager = (employeeData.isManager) ? true : false;
+        for (var i in employeeData) {
+        if (i == "") {
+            i = null;
+        }
+        }   
+        Employee.create(employeeData).then(resolve()).catch(() => reject("unable to create employee"));
+    })
+}
+
 function getEmployeeByStatus(status){
     return new Promise((resolve,reject) => {
         Employee.findAll({
@@ -104,30 +129,6 @@ function getEmployeeByNum(num){
         .catch(reject('no results returned'))
         })
 }
-
-function getManagers(){
-    return new Promise(function (resolve, reject) { reject();
-    });
-}
-
-function getDepartments(){
-   return new Promise(function(resolve, reject){
-    Department.findAll().then(data => resolve(data)).catch(() => reject("no results returned"));
-   })
-}
-
-function addEmployee(employeeData){
-   return new Promise(function(resolve, reject){
-    employeeData.isManager = (employeeData.isManager) ? true : false;
-    for(var a in employeeData){
-        if(a = ""){
-            a = null;
-        }
-    }
-    Employee.create(employeeData).then(resolve()).catch(() => reject("unable to create employee"))
-   })
-}
-
 function updateEmployee(employeeData){
     return new Promise(function(resolve, reject){
      employeeData.isManager = (employeeData.isManager) ? true : false;

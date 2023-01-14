@@ -1,0 +1,23 @@
+body {
+    background: #E0F2E9 !important;
+}
+
+h2 {
+    color: #3C887E !important
+}
+
+p {
+    color: #5B7B7A
+}
+
+.navbar {
+    background: #CEB5A7 !important;
+    border-color: #CEB5A7 !important; 
+    border-radius: 0;
+}
+
+
+#act {
+    background: #337165 !important;
+    border-color: #337165 !important;
+}
