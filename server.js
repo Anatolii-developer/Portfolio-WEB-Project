@@ -1,10 +1,8 @@
 /*********************************************************************************
-* WEB322 – Assignment 6
-* I declare that this assignment is my own work in accordance with Seneca Academic Policy. No part
-* of this assignment has been copied manually or electronically from any other source
-* (including 3rd party web sites) or distributed to other students. *
-* Name: Anatolii Hryhorzhevskyi Student ID: 150314201 Date: 12/11/2022 *
-* Online (Heroku Cyclic) Link: ________________________________________________________ * ********************************************************************************/
+* Name: Anatolii Hryhorzhevskyi*
+* 
+* ********************************************************************************/
+
 var express = require('express'); // Include express.js module
 const path = require("path"); // include module path to use __dirname, and function path.join()
 const fs = require('fs');
@@ -170,7 +168,8 @@ app.post("/employee/update", ensureLogin, (req, res) => {
 });
 
 app.get('/employees/add', ensureLogin, function(req, res){
-    res.render(path.join(__dirname, "/views/addEmployee"))
+    data.getDepartments().then(value =>
+        res.render('addEmployee', {departments: value})).catch(() => res.render('addEmployee', {departments: []}));
 });
 
 const storage = multer.diskStorage({
@@ -204,10 +203,10 @@ app.get('/images', ensureLogin, (req, res) => {
     });
 });
 
-app.post('/employees/add', ensureLogin, (req, res) => {
-    data.addEmployee(req.body).then(()=>{
-    res.redirect("/employees");
-})
+app.post("/employees/add", ensureLogin,(req, res) => {
+    data.addEmployee(req.body).then(
+    res.redirect("/employees")
+    );
 });
 
 app.get("/employees", ensureLogin, (req, res) => {
@@ -216,7 +215,7 @@ app.get("/employees", ensureLogin, (req, res) => {
     let manager = req.query.manager;
     if (status) {
         data.getEmployeeByStatus(status).then(value => {
-            if (data.length > 0) {
+            if (value.length > 0) {
                 res.render("employees", { value: value });
             }
             else {
@@ -226,7 +225,7 @@ app.get("/employees", ensureLogin, (req, res) => {
     }
     else if (department) {
         data.getEmployeesByDepartment(department).then(value => {
-            if (data.length > 0) {
+            if (value.length > 0) {
                 res.render("employees", { value: value });
             }
             else {
@@ -236,7 +235,7 @@ app.get("/employees", ensureLogin, (req, res) => {
     }
     else if (manager) {
         data.getEmployeesByManager(manager).then(value =>{
-            if (data.length > 0) {
+            if (value.length > 0) {
                 res.render("employees", { value: value });
             }
             else {
@@ -303,3 +302,5 @@ data.initialize() .then(dataServiceAuth.initialize) .then(function(){
     app.listen(HTTP_PORT, function(){ console.log("app listening on: " + HTTP_PORT)
     }); }).catch(function(err){
     console.log("unable to start server: " + err); });
+
+    
